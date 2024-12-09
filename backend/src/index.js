@@ -9,7 +9,12 @@ dotenv.config({
 
 
 const app = express()
+
+connectDB()
+
 app.listen(process.env.PORT , ()=>{
     console.log("app has started")
 })
-connectDB()
+
+
+
