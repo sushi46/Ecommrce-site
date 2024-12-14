@@ -1,6 +1,7 @@
-import express, { json } from "express"
+import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import errorHandler from "./middlewares/errormiddleware.js"
 
 const app = express()
 
@@ -23,7 +24,7 @@ app.listen(process.env.PORT , ()=>{
     console.log("app has started")
 })
 
-
+//app.use(errorHandler)
 
 
 export default app
