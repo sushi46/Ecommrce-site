@@ -9,4 +9,4 @@ const cartSchema = new mongoose.Schema({
     totalPrice: { type: Number, required: true },
 }, { timestamps: true });
 
-export default cartSchema
+export default mongoose.model("Cart", cartSchema)
