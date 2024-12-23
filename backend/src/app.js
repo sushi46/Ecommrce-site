@@ -2,6 +2,10 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import errorHandler from "./middlewares/errormiddleware.js"
+import { version1 } from "./constants.js"
+import { globalRateLimit } from "./middlewares/rateLimitmiddleware.js"
+
+
 
 const app = express()
 
@@ -20,9 +24,16 @@ app.use(express.static("public"))
 
 app.use(cookieParser())
 
-app.listen(process.env.PORT , ()=>{
-    console.log("app has started")
-})
+
+app.use(globalRateLimit)
+
+
+
+
+import userRouter from "./routes/user.route.js"
+
+
+app.use(`${version1}/users`, userRouter )
 
 //app.use(errorHandler)
 
