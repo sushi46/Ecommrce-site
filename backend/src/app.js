@@ -3,9 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import errorHandler from "./middlewares/errormiddleware.js"
 import { version1 } from "./constants.js"
-import { globalRateLimit } from "./middlewares/rateLimitmiddleware.js"
-import { auth } from "express-openid-connect"
-import config from "./utilities/authservice.js"
+import { globalRateLimit } from "./middlewares/AuthRateLimit.js"
 
 
 
@@ -28,7 +26,7 @@ app.use(express.static("public"))
 
 app.use(cookieParser())
 
-app.use(auth(config))
+
 
 
 // app.use(globalRateLimit)
