@@ -1,11 +1,11 @@
-import apiError from "../utilities/apiError.js"
-import apiResponse from "../utilities/apiResponse.js"
+import ApiError from "../utilities/apiError.js"
+import ApiResponse from "../utilities/apiResponse.js"
 
 const errorHandler = (err, req, res, next) => {
-    if (err instanceof apiError) {
+    if (err instanceof ApiError) {
         return res
           .status(err.statusCode)
-          .json(apiResponse.error(err.message, err.details).toJSON());
+          .json(ApiResponse.error(err.message, err.details).toJSON());
       }
     
       console.error('Unexpected error:', err);
@@ -18,7 +18,7 @@ const errorHandler = (err, req, res, next) => {
     
       return res
         .status(genericError.statusCode)
-        .json(apiResponse.error(genericError.message, genericError.details).toJSON());
+        .json(ApiResponse.error(genericError.message, genericError.details).toJSON());
 }
 
 export default errorHandler

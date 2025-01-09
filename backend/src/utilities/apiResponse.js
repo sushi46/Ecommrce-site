@@ -10,7 +10,7 @@ class ApiResponse {
       return new ApiResponse(true, message, data, meta);
     }
   
-   error(message, details = null) {
+    static error(message, details = null) {
       return new ApiResponse(false, message, details);
     }
 
