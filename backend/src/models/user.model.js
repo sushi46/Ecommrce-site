@@ -4,12 +4,19 @@ import jwt from "jsonwebtoken"
 
 
 const userSchema = new mongoose.Schema({
+    clerkId: {type: String, unique: true, required:true},
     fullName: { type: String},
     email: { type: String, required:true, unique: true},
-    password: { type: String },
     phone: { type: String },
-    address: { type: String },
+    userAddress:  {
+        address: { type: String },
+        city: { type: String},
+        state: { type: String },
+        postalCode: { type: String },
+        country: { type: String}
+      },
     role: { type: String, enum: ['customer', 'admin'], default: 'customer' },
+    theme: { type: String, enum: ['white', 'dark'], default: 'white' },
 }, { timestamps: true });
 
 

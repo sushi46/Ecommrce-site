@@ -22,4 +22,4 @@ const orderSchema = new mongoose.Schema({
     paymentStatus: { type: String, enum: ['paid', 'unpaid'], default: 'unpaid' },
 }, { timestamps: true });
 
-export default orderSchema
+export  default mongoose.model("Order", orderSchema)
