@@ -8,13 +8,7 @@ const userSchema = new mongoose.Schema({
     fullName: { type: String},
     email: { type: String, required:true, unique: true},
     phone: { type: String },
-    userAddress:  {
-        address: { type: String },
-        city: { type: String},
-        state: { type: String },
-        postalCode: { type: String },
-        country: { type: String}
-      },
+    addresses: [{type: mongoose.Schema.ObjectId.type, ref: "Address"}],
     role: { type: String, enum: ['customer', 'admin'], default: 'customer' },
     theme: { type: String, enum: ['white', 'dark'], default: 'white' },
 }, { timestamps: true });

@@ -12,13 +12,7 @@ const orderSchema = new mongoose.Schema({
         enum: ['pending', 'shipped', 'delivered', 'cancelled'], 
         default: 'pending' 
     },
-    shippingDetails: {
-        address: { type: String, required: true },
-        city: { type: String, required: true },
-        state: { type: String, required: true },
-        postalCode: { type: String, required: true },
-        country: { type: String, required: true }
-    },
+    shippingDetails: {type: mongoose.Schema.types.ObjectId, ref: "Address", required: true},
     paymentStatus: { type: String, enum: ['paid', 'unpaid'], default: 'unpaid' },
 }, { timestamps: true });
 
