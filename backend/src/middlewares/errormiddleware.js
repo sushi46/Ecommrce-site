@@ -9,6 +9,14 @@ const errorHandler = (err, req, res, next) => {
       }
     
       console.error('Unexpected error:', err);
+
+
+      if (err.name === "ValidationError") {
+        const errors = Object.values(err.errors).map((e) => e.message);
+        const response = ApiResponse.error("Validation error", { errors });
+        return res.status(400).json(response.toJSON());
+      }
+      
     
       const genericError = new ApiError(
         500,

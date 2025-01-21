@@ -10,7 +10,7 @@ const clerkAuth = async (req, res, next) => {
     try {
         const clientToken = req.headers.authorization;
         if (!clientToken) {
-            throw new ApiError(401, "No authorization token provided");
+            throw ApiError.unauthorized("No authorization token provided");
         }
         
         // If token is in "Bearer <token>" format, extract the token
@@ -21,7 +21,7 @@ const clerkAuth = async (req, res, next) => {
         next();
     } catch (error) {
       console.log("Authentication failed")
-      next(new ApiError(401, "Invalid or expired token"))
+      next( ApiError.unauthorized("Invalid or expired token"))
       return
     }
 }
