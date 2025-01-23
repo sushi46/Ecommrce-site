@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import generateCustomerId from "../utilities/customerIDgenerator";
 
 const orderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -14,6 +15,20 @@ const orderSchema = new mongoose.Schema({
     },
     shippingDetails: {type: mongoose.Schema.types.ObjectId, ref: "Address", required: true},
     paymentStatus: { type: String, enum: ['paid', 'unpaid'], default: 'unpaid' },
+    customerId: { type: String, required: true, unique: true },
 }, { timestamps: true });
+
+
+
+
+
+orderSchema.pre("save", function(){
+    if(!this.customerId){
+      this.customerId = generateCustomerId()
+    }
+
+    next()
+})
+
 
 export  default mongoose.model("Order", orderSchema)
