@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required:true, unique: true},
     phone: { type: String },
     addresses: [{type: mongoose.Schema.ObjectId.type, ref: "Address"}],
-    role: { type: String, enum: ['customer', 'admin'], default: 'customer' },
-    theme: { type: String, enum: ['white', 'dark'], default: 'white' },
+    role: { type: String, enum: ["customer", "admin"], default: "customer" },
+    theme: { type: String, enum: ["white", "dark"], default: "white" },
 }, { timestamps: true });
 
 
