@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import generateCustomerId from "../utilities/customerIDgenerator";
+import generateOrderId from "../utilities/customerIDgenerator.js";
 
 const orderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -13,18 +13,21 @@ const orderSchema = new mongoose.Schema({
         enum: ["pending", "shipped", "delivered", "cancelled"],
         default: "pending" 
     },
-    shippingDetails: {type: mongoose.Schema.types.ObjectId, ref: "Address", required: true},
+    shippingDetails: {type: mongoose.Schema.Types.ObjectId, ref: "Address", required: true},
+    paymentMethod: {type: String, enum: ["COD", "Stripe"]},
     paymentStatus: { type: String, enum: ["paid", "unpaid"], default: "unpaid" },
-    customerId: { type: String, required: true, unique: true },
+    orderId: { type: String, required: true, unique: true },
+    previousVersion : { type: mongoose.Schema.Types.ObjectId, ref: "Order", required: true},
+    latestVersion : { type: Boolean, default: true}
 }, { timestamps: true });
 
 
 
 
 
-orderSchema.pre("save", function(){
-    if(!this.customerId){
-      this.customerId = generateCustomerId()
+orderSchema.pre("save", function(next){
+    if(!this.orderId){
+      this.orderId = generateOrderId()
     }
 
     next()
