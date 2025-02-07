@@ -1,10 +1,22 @@
-
 const handleJoin = (socket) => {
-  socket.on("join", (roomId)=>{
-   socket.join(roomId)
-   console.log(`User ${socket.id} joined room: ${roomId}`)
-  })
-}
+   const clerkId = socket.handshake.auth.userId;
+ 
+   if (!clerkId) {
+     console.error("Couldn't find the associated user ID");
+     socket.emit("error", { message: "User ID is required" });
+     socket.disconnect(); 
+     return;
+   }
+ 
+   socket.join(`User_${clerkId}`);
+   console.log(`User ${socket.id} joined room: User_${clerkId}`);
+ 
+   // Handle joining additional rooms (if needed)
+   socket.on("join", (roomId) => {
+     socket.join(roomId);
+     console.log(`User ${socket.id} joined room: ${roomId}`);
+   });
+};
 
 const handleMessage = (io, socket) => {
  socket.on("message", (data)=> {

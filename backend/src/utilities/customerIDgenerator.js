@@ -1,7 +1,7 @@
 import { v4 as uuidv4} from "uuid"
 
 
-const generateCustomerId = () => {
+const generateOrderId = () => {
 
     const generateUUID = uuidv4()
 
@@ -10,4 +10,4 @@ const generateCustomerId = () => {
     return userFriendlyid
 }
 
-export default generateCustomerId
+export default generateOrderId

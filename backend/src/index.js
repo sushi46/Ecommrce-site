@@ -6,6 +6,7 @@ import {Server} from "socket.io"
 import { handleJoin, handleMessage, handleDisconnect } from "./utilities/socket.io/events.js"
 
 
+
 dotenv.config({
     path: '../.env'
 })
@@ -13,13 +14,14 @@ dotenv.config({
 const server = http.createServer()
 const io = new Server(server)
 
-io.on("connection", (socket)=> {
-  console.log(`user connected : ${socket.id}`)
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
 
-  handleJoin(socket)
-  handleMessage(io, socket)
-  handleDisconnect(socket)
-})
+  handleJoin(socket);
+  handleMessage(io, socket);
+  handleDisconnect(socket);
+});
+
 
 
 
@@ -30,3 +32,4 @@ console.log("it has begun")
 })
 
 
+export {io } 
