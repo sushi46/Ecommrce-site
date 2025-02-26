@@ -4,13 +4,15 @@ import jwt from "jsonwebtoken"
 
 
 const userSchema = new mongoose.Schema({
-    clerkId: {type: String, unique: true, required:true},
-    fullName: { type: String},
-    email: { type: String, required:true, unique: true},
-    phone: { type: String },
-    addresses: [{type: mongoose.Schema.Types.ObjectId, ref: "Address"}],
-    theme: { type: String, enum: ["white", "dark"], default: "white" },
+  clerkId: { type: String, unique: true, required: true, index: true},
+  fullName: { type: String },
+  email: { type: String, required: true, unique: true , index: true},
+  phone: { type: String },
+  addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address"}],
+  theme: { type: String, enum: ["white", "dark"], default: "white" },
+  role: { type: String, enum: ["user", "seller", "both"], required: true, default: "user", index: true} // New role field
 }, { timestamps: true });
+
 
 
 //  userSchema.pre("save", async function (next){

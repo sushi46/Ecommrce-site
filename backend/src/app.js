@@ -5,7 +5,9 @@ import errorHandler from "./middlewares/errormiddleware.js"
 import { version1 } from "./constants.js"
 import { globalRateLimit } from "./middlewares/AuthRateLimit.js"
 import { clerkMiddleware} from "@clerk/express"
-import {clerkClient} from "./utilities/authservice.js"
+import {clerkClient, clerkAuth} from "./utilities/authservice.js"
+import { isSeller, isUser } from "./middlewares/roles.middleware.js"
+
 
 const app = express()
 
@@ -35,12 +37,12 @@ app.use(clerkMiddleware({
 // app.use(globalRateLimit)
 
 import userRouter from "./routes/user.route.js"
+import sellerRouter from "./routes/seller.route.js"
 
-app.use(`${version1}/users`, userRouter )
 
-// app.get("/working", (req, res)=>{
-//     res.send("thihs is working")
-// })
+app.use(`${version1}/users`, clerkAuth, isUser, userRouter)
+
+app.use(`${version1}/seller`, clerkAuth, isSeller, sellerRouter)
 
 app.get("/", (req, res)=>{
     res.send("Home")
